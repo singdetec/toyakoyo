@@ -36,7 +36,7 @@ namespace webservice
         [WebMethod]
         public string getosql()
         {
-            string strConn = "server=//192.168.0.77,59086;database=master;User ID=singde;Password=citymulti1234;Trusted_Connection=True;";
+            string strConn = "server=192.168.0.77,59086;User ID=singde;Password=citymulti1234;Trusted_Connection=False;";
             string path = "";
             //建立連接
             SqlConnection myConn = new SqlConnection(strConn);
