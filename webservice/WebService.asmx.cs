@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace webservice
 {
@@ -28,5 +31,45 @@ namespace webservice
         {
             return  (a+b);
         }
+
+
+        [WebMethod]
+        public string getosql()
+        {
+            string strConn = "server=//192.168.0.77,59086;database=master;User ID=singde;Password=citymulti1234;Trusted_Connection=True;";
+            string path = "";
+            //建立連接
+            SqlConnection myConn = new SqlConnection(strConn);
+
+
+            //打開連接
+            myConn.Open();
+
+
+            String strSQL = @"select * from TestDB.dbo.Image";
+
+
+            //建立SQL命令對象
+            SqlCommand myCommand = new SqlCommand(strSQL, myConn);
+
+
+            //得到Data結果集
+            SqlDataReader myDataReader = myCommand.ExecuteReader();
+
+
+
+            //讀取結果
+            while (myDataReader.Read())
+            {
+                if (myDataReader["ImageLink"].ToString() != "")
+                {
+                    path += myDataReader["ImageLink"].ToString();
+                    
+                }
+            }
+
+            return path;
+        }
+
     }
 }
