@@ -12,6 +12,8 @@
     <div>
     
         杏德科技網頁測試</div>
+        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" style="height: 27px" Text="Button" />
+        <asp:TextBox ID="TextBox1" runat="server" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
     </form>
 </body>
 </html>
