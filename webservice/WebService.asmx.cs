@@ -20,28 +20,7 @@ namespace webservice
     // [System.Web.Script.Services.ScriptService]
     public class WebService_index : System.Web.Services.WebService
     {
-        public static string Message;
-
-
-        public void sqlset(string sql, ref SqlDataReader myDataReader)
-        {
-            string strConn = WebConfigurationManager.ConnectionStrings["SQLConnection"].ConnectionString.ToString();
-             try
-            {
-                SqlConnection myConn = new SqlConnection(strConn);
-                myConn.Open();
-                SqlCommand myCommand = new SqlCommand(sql, myConn);
-                myDataReader = myCommand.ExecuteReader();
-                myConn.Close();
-                Message = "execute sqlcommond success.";
-            }
-            catch (Exception ex){
-                throw new System.ArgumentException(ex.Message);
-            } 
-        }
-
-
-
+        
         [WebMethod]
         public string Request_AllItems()
         {
@@ -50,15 +29,10 @@ namespace webservice
             String sql = @"select * from TestDB.dbo.Image";  //宣告SQL
             try
             {
-                sqlset(sql, ref myDataReader);
-                if (myDataReader["ImageLink"].ToString() != "") {
-                    path += myDataReader["ImageLink"].ToString();
-                }
+                SQLcmd.Query(sql, ref myDataReader);
+                if (myDataReader["ImageLink"].ToString() != "") path += myDataReader["ImageLink"].ToString();
             }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
+            catch (Exception ex){return ex.Message;}
             return path;
         } //getosql()
 
