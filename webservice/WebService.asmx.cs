@@ -51,13 +51,14 @@ namespace webservice
             try
             {
                 sqlset(sql, ref myDataReader);
-                if (myDataReader("NAME").ToString != "")
+                if (myDataReader["NAME"].ToString() != "") {
+                    path += myDataReader["NAME"].ToString();
+                }
             }
             catch (Exception ex)
             {
-                Message = ex.Message;
+                return ex.Message;
             }
-            if (Message != string.Empty) return Message;
             return path;
         } //getosql()
 
