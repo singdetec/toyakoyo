@@ -51,8 +51,8 @@ namespace webservice
             try
             {
                 sqlset(sql, ref myDataReader);
-                if (myDataReader["NAME"].ToString() != "") {
-                    path += myDataReader["NAME"].ToString();
+                if (myDataReader["ImageLink"].ToString() != "") {
+                    path += myDataReader["ImageLink"].ToString();
                 }
             }
             catch (Exception ex)
