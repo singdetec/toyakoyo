@@ -20,49 +20,44 @@ namespace webservice
     // [System.Web.Script.Services.ScriptService]
     public class WebService_index : System.Web.Services.WebService
     {
+        public static string Message;
 
-        [WebMethod]
-        public string HelloWorld()
+
+        public void sqlset(string sql, ref SqlDataReader myDataReader)
         {
-            return "Hello World";
-        }
-
-        [WebMethod]
-        public int xilian(int a,int b)
-        {
-            return  (a+b);
-        }
-
-
-        [WebMethod]
-        public string getosql()
-        {
-            string path = "";
             string strConn = WebConfigurationManager.ConnectionStrings["SQLConnection"].ConnectionString.ToString();
+             try
+            {
+                SqlConnection myConn = new SqlConnection(strConn);
+                myConn.Open();
+                SqlCommand myCommand = new SqlCommand(sql, myConn);
+                myDataReader = myCommand.ExecuteReader();
+                myConn.Close();
+                Message = "execute sqlcommond success.";
+            }
+            catch (Exception ex){
+                throw new System.ArgumentException(ex.Message);
+            } 
+        }
+
+
+
+        [WebMethod]
+        public string Request_AllItems()
+        {
+            string path = string.Empty;  //宣告回傳變數
+            SqlDataReader myDataReader = null;  //宣告容器
+            String sql = @"select * from TestDB.dbo.Image";  //宣告SQL
             try
             {
-                //建立連接
-                SqlConnection myConn = new SqlConnection(strConn);
-                //打開連接
-                myConn.Open();
-                String strSQL = @"select * from TestDB.dbo.Image";
-                //建立SQL命令對象
-                SqlCommand myCommand = new SqlCommand(strSQL, myConn);
-                //得到Data結果集
-                SqlDataReader myDataReader = myCommand.ExecuteReader();
-                //讀取結果
-                while (myDataReader.Read())
-                {
-                    if (myDataReader["ImageLink"].ToString() != "")
-                    {
-                        path += myDataReader["ImageLink"].ToString();
-                    }
-                }
-                
+                sqlset(sql, ref myDataReader);
+                if (myDataReader("NAME").ToString != "")
             }
-            catch(Exception ex) {
-
+            catch (Exception ex)
+            {
+                Message = ex.Message;
             }
+            if (Message != string.Empty) return Message;
             return path;
         } //getosql()
 
