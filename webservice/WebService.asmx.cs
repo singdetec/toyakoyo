@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Web.Configuration;
+using System.Globalization;
 
 namespace webservice
 {
@@ -39,7 +40,25 @@ namespace webservice
             }
             catch (Exception ex){return ex.Message;}
             return path;
-        } //getosql()
+        } //Request_AllItems()
+
+
+        [WebMethod]
+        public void Log(string Description) {
+            string sql = @"Insert into TestDB.dbo.WebLog (comname,systime,description) Values(@comname,@systime,@description)";
+            try
+            {
+                SqlConnection myConn = new SqlConnection(strConn);
+                myConn.Open();
+                SqlCommand myCommand = new SqlCommand(sql, myConn);
+                myCommand.Parameters.AddWithValue("@myregion", Environment.MachineName);
+                myCommand.Parameters.AddWithValue("@systime",DateTime.Now.ToString() );
+                myCommand.Parameters.AddWithValue("@description", "測試");
+                myCommand.ExecuteNonQuery();
+                myConn.Close();
+            }
+            catch (Exception ex) { }
+        }//Log()
 
     }
 }
