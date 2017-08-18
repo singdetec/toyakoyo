@@ -45,20 +45,21 @@ namespace webservice
 
         [WebMethod]
         public void Log(string Description) {
-            string sql = @"Insert into TestDB.dbo.WebLog (comname,systime,description) Values(@comname,@systime,@description)";
+            string sql = @"Insert into TestDB.dbo.WebLog (comname,description) Values(@comname,@description)";
             try
             {
                 SqlConnection myConn = new SqlConnection(strConn);
                 myConn.Open();
                 SqlCommand myCommand = new SqlCommand(sql, myConn);
-                myCommand.Parameters.AddWithValue("@myregion", Environment.MachineName);
-                myCommand.Parameters.AddWithValue("@systime",DateTime.Now.ToString() );
-                myCommand.Parameters.AddWithValue("@description", "測試");
+                myCommand.Parameters.AddWithValue("@comname", Environment.MachineName);
+                myCommand.Parameters.AddWithValue("@description", Description);
                 myCommand.ExecuteNonQuery();
                 myConn.Close();
             }
             catch (Exception ex) { }
         }//Log()
+        
+
 
     }
 }

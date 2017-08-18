@@ -31,6 +31,8 @@ namespace webservice.singde_webservice {
         
         private System.Threading.SendOrPostCallback Request_AllItemsOperationCompleted;
         
+        private System.Threading.SendOrPostCallback LogOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -73,6 +75,9 @@ namespace webservice.singde_webservice {
         public event Request_AllItemsCompletedEventHandler Request_AllItemsCompleted;
         
         /// <remarks/>
+        public event LogCompletedEventHandler LogCompleted;
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Request_AllItems", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string Request_AllItems() {
             object[] results = this.Invoke("Request_AllItems", new object[0]);
@@ -96,6 +101,34 @@ namespace webservice.singde_webservice {
             if ((this.Request_AllItemsCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.Request_AllItemsCompleted(this, new Request_AllItemsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Log", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void Log(string Description) {
+            this.Invoke("Log", new object[] {
+                        Description});
+        }
+        
+        /// <remarks/>
+        public void LogAsync(string Description) {
+            this.LogAsync(Description, null);
+        }
+        
+        /// <remarks/>
+        public void LogAsync(string Description, object userState) {
+            if ((this.LogOperationCompleted == null)) {
+                this.LogOperationCompleted = new System.Threading.SendOrPostCallback(this.OnLogOperationCompleted);
+            }
+            this.InvokeAsync("Log", new object[] {
+                        Description}, this.LogOperationCompleted, userState);
+        }
+        
+        private void OnLogOperationCompleted(object arg) {
+            if ((this.LogCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.LogCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -143,6 +176,10 @@ namespace webservice.singde_webservice {
             }
         }
     }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    public delegate void LogCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
 }
 
 #pragma warning restore 1591

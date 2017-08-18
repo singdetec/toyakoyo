@@ -21,6 +21,7 @@ namespace webservice
         {
             string test = WebserviceFuntion.Request_AllItems();
             TextBox1.Text = test;
+            WebserviceFuntion.Log("撈取資料:Request_AllItems()");
         }
 
         protected void TextBox1_TextChanged(object sender, EventArgs e)
