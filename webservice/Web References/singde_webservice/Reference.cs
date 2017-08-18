@@ -29,11 +29,7 @@ namespace webservice.singde_webservice {
     [System.Web.Services.WebServiceBindingAttribute(Name="WebService_indexSoap", Namespace="http://tempuri.org/")]
     public partial class WebService_index : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
-        private System.Threading.SendOrPostCallback HelloWorldOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback xilianOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback getosqlOperationCompleted;
+        private System.Threading.SendOrPostCallback Request_AllItemsOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -74,96 +70,32 @@ namespace webservice.singde_webservice {
         }
         
         /// <remarks/>
-        public event HelloWorldCompletedEventHandler HelloWorldCompleted;
+        public event Request_AllItemsCompletedEventHandler Request_AllItemsCompleted;
         
         /// <remarks/>
-        public event xilianCompletedEventHandler xilianCompleted;
-        
-        /// <remarks/>
-        public event getosqlCompletedEventHandler getosqlCompleted;
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/HelloWorld", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string HelloWorld() {
-            object[] results = this.Invoke("HelloWorld", new object[0]);
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Request_AllItems", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string Request_AllItems() {
+            object[] results = this.Invoke("Request_AllItems", new object[0]);
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void HelloWorldAsync() {
-            this.HelloWorldAsync(null);
+        public void Request_AllItemsAsync() {
+            this.Request_AllItemsAsync(null);
         }
         
         /// <remarks/>
-        public void HelloWorldAsync(object userState) {
-            if ((this.HelloWorldOperationCompleted == null)) {
-                this.HelloWorldOperationCompleted = new System.Threading.SendOrPostCallback(this.OnHelloWorldOperationCompleted);
+        public void Request_AllItemsAsync(object userState) {
+            if ((this.Request_AllItemsOperationCompleted == null)) {
+                this.Request_AllItemsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRequest_AllItemsOperationCompleted);
             }
-            this.InvokeAsync("HelloWorld", new object[0], this.HelloWorldOperationCompleted, userState);
+            this.InvokeAsync("Request_AllItems", new object[0], this.Request_AllItemsOperationCompleted, userState);
         }
         
-        private void OnHelloWorldOperationCompleted(object arg) {
-            if ((this.HelloWorldCompleted != null)) {
+        private void OnRequest_AllItemsOperationCompleted(object arg) {
+            if ((this.Request_AllItemsCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.HelloWorldCompleted(this, new HelloWorldCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/xilian", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int xilian(int a, int b) {
-            object[] results = this.Invoke("xilian", new object[] {
-                        a,
-                        b});
-            return ((int)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void xilianAsync(int a, int b) {
-            this.xilianAsync(a, b, null);
-        }
-        
-        /// <remarks/>
-        public void xilianAsync(int a, int b, object userState) {
-            if ((this.xilianOperationCompleted == null)) {
-                this.xilianOperationCompleted = new System.Threading.SendOrPostCallback(this.OnxilianOperationCompleted);
-            }
-            this.InvokeAsync("xilian", new object[] {
-                        a,
-                        b}, this.xilianOperationCompleted, userState);
-        }
-        
-        private void OnxilianOperationCompleted(object arg) {
-            if ((this.xilianCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.xilianCompleted(this, new xilianCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/getosql", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string getosql() {
-            object[] results = this.Invoke("getosql", new object[0]);
-            return ((string)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void getosqlAsync() {
-            this.getosqlAsync(null);
-        }
-        
-        /// <remarks/>
-        public void getosqlAsync(object userState) {
-            if ((this.getosqlOperationCompleted == null)) {
-                this.getosqlOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetosqlOperationCompleted);
-            }
-            this.InvokeAsync("getosql", new object[0], this.getosqlOperationCompleted, userState);
-        }
-        
-        private void OngetosqlOperationCompleted(object arg) {
-            if ((this.getosqlCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.getosqlCompleted(this, new getosqlCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.Request_AllItemsCompleted(this, new Request_AllItemsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -188,69 +120,17 @@ namespace webservice.singde_webservice {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
-    public delegate void HelloWorldCompletedEventHandler(object sender, HelloWorldCompletedEventArgs e);
+    public delegate void Request_AllItemsCompletedEventHandler(object sender, Request_AllItemsCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class HelloWorldCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class Request_AllItemsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal HelloWorldCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public string Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
-    public delegate void xilianCompletedEventHandler(object sender, xilianCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class xilianCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal xilianCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public int Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((int)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
-    public delegate void getosqlCompletedEventHandler(object sender, getosqlCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class getosqlCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal getosqlCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal Request_AllItemsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

@@ -27,10 +27,11 @@ namespace webservice
             string path = string.Empty;  //宣告回傳變數
             SqlDataReader myDataReader = null;  //宣告容器
             String sql = @"select * from TestDB.dbo.Image";  //宣告SQL
-            try
-            {
+            try{
                 SQLcmd.Query(sql, ref myDataReader);
-                if (myDataReader["ImageLink"].ToString() != "") path += myDataReader["ImageLink"].ToString();
+                while (myDataReader.Read()) {
+                    if (myDataReader["ImageLink"].ToString() != "") path += myDataReader["ImageLink"].ToString();
+                }
             }
             catch (Exception ex){return ex.Message;}
             return path;
