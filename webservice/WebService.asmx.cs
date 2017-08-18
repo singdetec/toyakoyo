@@ -20,7 +20,7 @@ namespace webservice
     // [System.Web.Script.Services.ScriptService]
     public class WebService_index : System.Web.Services.WebService
     {
-        
+        public static string strConn = WebConfigurationManager.ConnectionStrings["SQLConnection"].ConnectionString.ToString();
         [WebMethod]
         public string Request_AllItems()
         {
@@ -28,10 +28,14 @@ namespace webservice
             SqlDataReader myDataReader = null;  //宣告容器
             String sql = @"select * from TestDB.dbo.Image";  //宣告SQL
             try{
-                SQLcmd.Query(sql, ref myDataReader);
+                SqlConnection myConn = new SqlConnection(strConn);
+                myConn.Open();
+                SqlCommand myCommand = new SqlCommand(sql, myConn);
+                myDataReader = myCommand.ExecuteReader();
                 while (myDataReader.Read()) {
                     if (myDataReader["ImageLink"].ToString() != "") path += myDataReader["ImageLink"].ToString();
                 }
+                myConn.Close();
             }
             catch (Exception ex){return ex.Message;}
             return path;
