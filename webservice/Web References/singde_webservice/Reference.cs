@@ -33,6 +33,10 @@ namespace webservice.singde_webservice {
         
         private System.Threading.SendOrPostCallback LogOperationCompleted;
         
+        private System.Threading.SendOrPostCallback CheckMemberAccountOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback RegisterAccountOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -76,6 +80,12 @@ namespace webservice.singde_webservice {
         
         /// <remarks/>
         public event LogCompletedEventHandler LogCompleted;
+        
+        /// <remarks/>
+        public event CheckMemberAccountCompletedEventHandler CheckMemberAccountCompleted;
+        
+        /// <remarks/>
+        public event RegisterAccountCompletedEventHandler RegisterAccountCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Request_AllItems", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -133,6 +143,68 @@ namespace webservice.singde_webservice {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/CheckMemberAccount", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string CheckMemberAccount(string account) {
+            object[] results = this.Invoke("CheckMemberAccount", new object[] {
+                        account});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CheckMemberAccountAsync(string account) {
+            this.CheckMemberAccountAsync(account, null);
+        }
+        
+        /// <remarks/>
+        public void CheckMemberAccountAsync(string account, object userState) {
+            if ((this.CheckMemberAccountOperationCompleted == null)) {
+                this.CheckMemberAccountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCheckMemberAccountOperationCompleted);
+            }
+            this.InvokeAsync("CheckMemberAccount", new object[] {
+                        account}, this.CheckMemberAccountOperationCompleted, userState);
+        }
+        
+        private void OnCheckMemberAccountOperationCompleted(object arg) {
+            if ((this.CheckMemberAccountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CheckMemberAccountCompleted(this, new CheckMemberAccountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/RegisterAccount", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string RegisterAccount([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] account, [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] password, string publickey) {
+            object[] results = this.Invoke("RegisterAccount", new object[] {
+                        account,
+                        password,
+                        publickey});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void RegisterAccountAsync(byte[] account, byte[] password, string publickey) {
+            this.RegisterAccountAsync(account, password, publickey, null);
+        }
+        
+        /// <remarks/>
+        public void RegisterAccountAsync(byte[] account, byte[] password, string publickey, object userState) {
+            if ((this.RegisterAccountOperationCompleted == null)) {
+                this.RegisterAccountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRegisterAccountOperationCompleted);
+            }
+            this.InvokeAsync("RegisterAccount", new object[] {
+                        account,
+                        password,
+                        publickey}, this.RegisterAccountOperationCompleted, userState);
+        }
+        
+        private void OnRegisterAccountOperationCompleted(object arg) {
+            if ((this.RegisterAccountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.RegisterAccountCompleted(this, new RegisterAccountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -180,6 +252,58 @@ namespace webservice.singde_webservice {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
     public delegate void LogCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    public delegate void CheckMemberAccountCompletedEventHandler(object sender, CheckMemberAccountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CheckMemberAccountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CheckMemberAccountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    public delegate void RegisterAccountCompletedEventHandler(object sender, RegisterAccountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class RegisterAccountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal RegisterAccountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
 }
 
 #pragma warning restore 1591

@@ -22,6 +22,36 @@
       <s:element name="LogResponse">
         <s:complexType />
       </s:element>
+      <s:element name="CheckMemberAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="account" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckMemberAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckMemberAccountResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegisterAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="account" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="publickey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegisterAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegisterAccountResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="Request_AllItemsSoapIn">
@@ -36,6 +66,18 @@
   <wsdl:message name="LogSoapOut">
     <wsdl:part name="parameters" element="tns:LogResponse" />
   </wsdl:message>
+  <wsdl:message name="CheckMemberAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckMemberAccount" />
+  </wsdl:message>
+  <wsdl:message name="CheckMemberAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckMemberAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegisterAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:RegisterAccount" />
+  </wsdl:message>
+  <wsdl:message name="RegisterAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:RegisterAccountResponse" />
+  </wsdl:message>
   <wsdl:portType name="WebService_indexSoap">
     <wsdl:operation name="Request_AllItems">
       <wsdl:input message="tns:Request_AllItemsSoapIn" />
@@ -44,6 +86,14 @@
     <wsdl:operation name="Log">
       <wsdl:input message="tns:LogSoapIn" />
       <wsdl:output message="tns:LogSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckMemberAccount">
+      <wsdl:input message="tns:CheckMemberAccountSoapIn" />
+      <wsdl:output message="tns:CheckMemberAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterAccount">
+      <wsdl:input message="tns:RegisterAccountSoapIn" />
+      <wsdl:output message="tns:RegisterAccountSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WebService_indexSoap" type="tns:WebService_indexSoap">
@@ -66,6 +116,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckMemberAccount">
+      <soap:operation soapAction="http://tempuri.org/CheckMemberAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterAccount">
+      <soap:operation soapAction="http://tempuri.org/RegisterAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WebService_indexSoap12" type="tns:WebService_indexSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -80,6 +148,24 @@
     </wsdl:operation>
     <wsdl:operation name="Log">
       <soap12:operation soapAction="http://tempuri.org/Log" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckMemberAccount">
+      <soap12:operation soapAction="http://tempuri.org/CheckMemberAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterAccount">
+      <soap12:operation soapAction="http://tempuri.org/RegisterAccount" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -71,11 +71,10 @@ namespace webservice
 
 
         [WebMethod]
-        public string RegisterAccount(byte[] account,byte[] password) {
+        public string RegisterAccount(byte[] account,byte[] password,string privatekey) {
             string result = string.Empty;
             RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-            
-      
+            rsa.FromXmlString(privatekey);
       // 解密。
        byte[] decryptedData_account = rsa.Decrypt(account, false);
        string decryptedText_account = Encoding.Default.GetString(decryptedData_account);
