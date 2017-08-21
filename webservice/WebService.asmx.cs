@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Web.Configuration;
 using System.Globalization;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace webservice
 {
@@ -58,8 +60,32 @@ namespace webservice
             }
             catch (Exception ex) { }
         }//Log()
-        
 
+
+        [WebMethod]
+        public string CheckMemberAccount(string account) {
+
+
+            return "f";
+        }//CheckMemberAccount()
+
+
+        [WebMethod]
+        public string RegisterAccount(byte[] account,byte[] password) {
+            string result = string.Empty;
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+            
+      
+      // 解密。
+       byte[] decryptedData_account = rsa.Decrypt(account, false);
+       string decryptedText_account = Encoding.Default.GetString(decryptedData_account);
+       byte[] decryptedData_password = rsa.Decrypt(password, false);
+       string decryptedText_password = Encoding.Default.GetString(decryptedData_password);
+
+
+
+            return decryptedText_account + "," + decryptedText_password;
+        }//RegisterAccount()
 
     }
 }
