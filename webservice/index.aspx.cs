@@ -33,21 +33,23 @@ namespace webservice
 
         protected void regsiter(object sender, EventArgs e)
         {
-            string account = TextBox2.Text.ToString();
-            string password = TextBox3.Text.ToString();
+         
 
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-            string orgText = account;
-            string  PrivateKey = rsa.ToXmlString(true);
-            string    PublicKey = rsa.ToXmlString(false);
-            rsa.FromXmlString(PublicKey);
-            // 加密。
-            byte[] orgData_account = Encoding.Default.GetBytes(account);
-            byte[] encryptedData_account = rsa.Encrypt(orgData_account, false);
-            byte[] orgData_password = Encoding.Default.GetBytes(password);
-            byte[] encryptedData_password = rsa.Encrypt(orgData_password, false);
-            
-            WebserviceFuntion.RegisterAccount(encryptedData_account, encryptedData_password, PrivateKey);
+            // 建立 CspParameters 物件，並指定 KeyContainerName
+            CspParameters cspPara = new CspParameters();
+            cspPara.KeyContainerName = "test secret key";
+            cspPara.Flags = CspProviderFlags.UseMachineKeyStore;
+            // 建立 RSA 演算法物件的執行個體，並將金鑰保存在 CSP 中
+            RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider(1024,cspPara);
+            rsaProvider.PersistKeyInCsp = true;         //將金鑰存到金鑰容器
+
+            // 將資料加密
+            byte[] bytePlain = Encoding.UTF8.GetBytes(TextBox2.Text.ToString());
+            byte[] byteCipher = rsaProvider.Encrypt(bytePlain, false);
+
+            // 將加密後的資料，轉 Base64 格式輸入
+           string account = Convert.ToBase64String(byteCipher);
+            TextBox4.Text = WebserviceFuntion.RegisterAccount(account);
         }
     }
 }

@@ -173,28 +173,24 @@ namespace webservice.singde_webservice {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/RegisterAccount", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string RegisterAccount([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] account, [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] password, string publickey) {
+        public string RegisterAccount(string account) {
             object[] results = this.Invoke("RegisterAccount", new object[] {
-                        account,
-                        password,
-                        publickey});
+                        account});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void RegisterAccountAsync(byte[] account, byte[] password, string publickey) {
-            this.RegisterAccountAsync(account, password, publickey, null);
+        public void RegisterAccountAsync(string account) {
+            this.RegisterAccountAsync(account, null);
         }
         
         /// <remarks/>
-        public void RegisterAccountAsync(byte[] account, byte[] password, string publickey, object userState) {
+        public void RegisterAccountAsync(string account, object userState) {
             if ((this.RegisterAccountOperationCompleted == null)) {
                 this.RegisterAccountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRegisterAccountOperationCompleted);
             }
             this.InvokeAsync("RegisterAccount", new object[] {
-                        account,
-                        password,
-                        publickey}, this.RegisterAccountOperationCompleted, userState);
+                        account}, this.RegisterAccountOperationCompleted, userState);
         }
         
         private void OnRegisterAccountOperationCompleted(object arg) {

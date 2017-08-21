@@ -71,20 +71,39 @@ namespace webservice
 
 
         [WebMethod]
-        public string RegisterAccount(byte[] account,byte[] password,string privatekey) {
-            string result = string.Empty;
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-            rsa.FromXmlString(privatekey);
-      // 解密。
-       byte[] decryptedData_account = rsa.Decrypt(account, false);
-       string decryptedText_account = Encoding.Default.GetString(decryptedData_account);
-       byte[] decryptedData_password = rsa.Decrypt(password, false);
-       string decryptedText_password = Encoding.Default.GetString(decryptedData_password);
+        public string RegisterAccount(string account) {
+            // 建立 CspParameters 物件，並指定 KeyContainerName
+             CspParameters cspPara = new CspParameters();
+            cspPara.KeyContainerName = "test secret key";
+            cspPara.Flags = CspProviderFlags.UseMachineKeyStore;
+            // 建立 RSA 演算法物件的執行個體，並將金鑰保存在 CSP 中
+            RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider(1024,cspPara);  //由金鑰容器取得金鑰
 
+            // 將資料解密
+            byte[] byteCipher = Convert.FromBase64String(account);
+            byte[] bytePlain = rsaProvider.Decrypt(byteCipher, false);
 
+            // 將解密後的資料，轉 UTF8 格式輸入
+            string result = Encoding.UTF8.GetString(bytePlain);
 
-            return decryptedText_account + "," + decryptedText_password;
+            return result;
         }//RegisterAccount()
+
+        [WebMethod]
+        public string UploadVideo(string path) {
+            string status = string.Empty;
+
+
+
+            return status;
+        }//UploadVideo()
+
+
+        [WebMethod]
+        public string UploadDiagram(string path) {
+            string result = string.Empty;
+            return result;
+        } //UploadDiagram()
 
     }
 }
